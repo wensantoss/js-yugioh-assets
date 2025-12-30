@@ -19,8 +19,8 @@ const state = {
 };
 
 const playersSides = {
-    player1: "player-field-card",
-    computer: "computer-field-card"
+    player1: "player-cards",
+    computer: "computer-cards"
 };
 
 const pathImages = "./src/assets/icons/";
@@ -59,9 +59,8 @@ async function createCardImage(IdCard, fieldSide) {
     cardImage.setAttribute("data-id", IdCard);
     cardImage.classList.add("card");
     
-    const
     
-    if(fildSide === playersSides.player1){
+    if(fieldSide === playersSides.player1){
         cardImage.addEventListener("click", ()=>{
             setCardsField(cardImage.getAttribute("data-id"));
         })
@@ -75,11 +74,11 @@ async function createCardImage(IdCard, fieldSide) {
 
 };
 
-async function drawCards (cardNumbers, fildSide){
+async function drawCards (cardNumbers, fieldSide){
     for(let i =0; i < cardNumbers; i++){
         const randomIdCard = await getRandomCardId();
-        const cardImage = await createCardImage(randomIdCard,fildSide);
-        document.getElementById(fieldSide.appendChild(cardImage));
+        const cardImage = await createCardImage(randomIdCard,fieldSide);
+        document.getElementById(fieldSide).appendChild(cardImage);
     }
 };
 
