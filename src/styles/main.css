@@ -122,3 +122,47 @@
   transition: transform 0.2s;
   transform: scale(1.2);
 }
+
+@media screen and (max-width: 426px) {
+  *{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+  .container{
+    display: flex;
+    flex-direction: column;
+  }
+  .container__left{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100vw;
+  }
+  .container__right{
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+  }
+
+  .score_box, .menu-avatar, .card_details{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
+  }
+
+  .card-box__container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    margin-top: -100px;
+  }
+
+  .bg-video, .video{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+}
