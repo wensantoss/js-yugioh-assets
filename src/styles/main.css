@@ -44,9 +44,8 @@
   justify-content: space-around;
 }
 
-.container__right{
-    width: 65%;
-
+.container__right {
+  width: 65%;
 }
 
 .score_box {
@@ -58,67 +57,68 @@
   border: 3px solid #000;
   border-radius: 5px;
 }
-.card_details{
-    background-color: #fff;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    height: 6rem;
-    width: 100%;
+.card_details {
+  background-color: #fff;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 6rem;
+  width: 100%;
 }
 
-#card-name{
-    font-size: 1rem;
+#card-name {
+  font-size: 1rem;
 }
-#card-type{
-font-size: 0.8rem;
-}
-
-.card-box__container{
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 0.3rem;
+#card-type {
+  font-size: 0.8rem;
 }
 
-.card-versus__container{
-    display: flex;
-    flex-direction: column;
-    padding-top: 0.1rem;
-    height: 300px;
+.card-box__container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.3rem;
 }
 
-.versus-top, .versus-bottom{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin-top: 4rem;
+.card-versus__container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.1rem;
+  height: 300px;
 }
 
-#next-duel{
-    display: none;
+.versus-top,
+.versus-bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4rem;
 }
 
-.card-box{
-    height: 9rem;
-    height: 100vh;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    margin-left: 30px;
+#next-duel {
+  display: none;
 }
 
-.card-infield{
-    height: 11.2rem;
-    width: 8rem;
+.card-box {
+  height: 9rem;
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-left: 30px;
 }
 
-.card:hover{
+.card-infield {
+  height: 11.2rem;
+  width: 8rem;
+}
+
+.card:hover {
   transition: transform 0.2s;
   transform: scale(1.2);
 }

@@ -16,11 +16,12 @@ const state = {
   actions: {
     button: document.getElementById("next-duel"),
   },
-};
-
-const playersSides = {
-  player1: "player-cards",
-  computer: "computer-cards",
+  playerSides: {
+    player1: "player-cards",
+    player1BOX: document.querySelector("#player-cards"),
+    computer: "computer-cards",
+    computerBOX: document.querySelector("#computer-cards"),
+  },
 };
 
 const pathImages = "./src/assets/icons/";
@@ -59,7 +60,7 @@ async function createCardImage(IdCard, fieldSide) {
   cardImage.setAttribute("data-id", IdCard);
   cardImage.classList.add("card");
 
-  if (fieldSide === playersSides.player1) {
+  if (fieldSide === state.playerSides.player1) {
     cardImage.addEventListener("mouseover", () => {
       drawSelectedCard(IdCard);
     });
@@ -71,6 +72,35 @@ async function createCardImage(IdCard, fieldSide) {
 
   return cardImage;
 }
+
+async function checkDuelResults(playerCardId, computerCardId) {
+  let duelResults = "Empate";
+  let playerCard = cardData[playerCardId];
+
+  if (playerCard.WinOf.includes(computerCardId)) {
+    duelResults = "Ganhou";
+    await playAudio("win");
+    state.score.playerScore++;
+  }
+
+  if (playerCard.LoseOf.includes(computerCardId)) {
+    duelResults = "Perdeu";
+    await playAudio("lose");
+    state.score.computerScore++;
+  }
+  return duelResults;
+
+}
+
+async function removeAllCardsImages() {
+  let { computerBOX, player1BOX } = state.playerSides;
+  let imgElements = computerBOX.querySelectorAll("img");
+  imgElements.forEach((img) => img.remove());
+
+  imgElements = player1BOX.querySelectorAll("img");
+  imgElements.forEach((img) => img.remove());
+}
+
 async function setCardsField(cardId) {
   // remove todas as cartas
   await removeAllCardsImages();
@@ -87,30 +117,59 @@ async function setCardsField(cardId) {
 
   await updateScore();
   await drawButton(duelResults);
+};
+
+async function drawButton(text) {
+    state.actions.button.innerText = text;
+    state.actions.button.style.display = "block";
+};
+
+
+async function updateScore(){
+    state.score.scoreBox.innerText = `Win: ${state.score.playerScore} | Lose: ${state.score.computerScore}`;
 }
 
 async function drawSelectedCard(index) {
-  state.cardSprites.avatar.src = cardData[index].img;
-  state.cardSprites.name.innerText = cardData[index].name;
-  state.cardSprites.type.innerText = "Atributte: " + cardData[index].type;
-}
+    state.cardSprites.avatar.src = cardData[index].img;
+    state.cardSprites.name.innerText = cardData[index].name;
+    state.cardSprites.type.innerText = "Atributte: " + cardData[index].type;
+};
 
 async function drawCards(cardNumbers, fieldSide) {
-  for (let i = 0; i < cardNumbers; i++) {
-    const randomIdCard = await getRandomCardId();
-    const cardImage = await createCardImage(randomIdCard, fieldSide);
-    document.getElementById(fieldSide).appendChild(cardImage);
-  }
-}
+    for (let i = 0; i < cardNumbers; i++) {
+        const randomIdCard = await getRandomCardId();
+        const cardImage = await createCardImage(randomIdCard, fieldSide);
+        document.getElementById(fieldSide).appendChild(cardImage);
+    }
+};
 
 async function getRandomCardId() {
-  const randomIndex = Math.floor(Math.random() * cardData.length);
-  return cardData[randomIndex].id;
+    const randomIndex = Math.floor(Math.random() * cardData.length);
+    return cardData[randomIndex].id;
+};
+
+async function playAudio(status){
+  const audio = new Audio(`./src/assets/audios/${status}.wav`)
+  audio.play();
 }
 
+
 function init() {
-  drawCards(5, playersSides.player1);
-  drawCards(5, playersSides.computer);
-}
+    state.fieldCards.player.src = "../src/assets/icons/card-back.png";
+    state.fieldCards.computer.src = "../src/assets/icons/card-back.png";
+    
+    drawCards(5, state.playerSides.player1);
+    drawCards(5, state.playerSides.computer);
+};
+
+async function resetDuel() {
+    state.cardSprites.avatar.src = "";
+    state.actions.button.display = "none";
+
+    state.fieldCards.player.src = "../src/assets/icons/card-back.png";
+    state.fieldCards.computer.src = "../src/assets/icons/card-back.png";
+
+    init();
+};
 
 init();
